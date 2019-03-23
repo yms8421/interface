@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransferInternalTypes;
 
 namespace HelloInterface.Models
 {
-    class BasicPerson : PersonBase, IPerson
+    class BasicPerson : IPerson
     {
-        public BasicPerson()
+        public BasicPerson(string name)
         {
             Id = Guid.NewGuid();
+            FullName = name;
         }
         public Guid Id { get; set; }
         public string FullName { get; set; }
         public decimal WalletAmount { get; set; }
+        public override string ToString()
+        {
+            return $"{FullName} - {WalletAmount}";
+        }
     }
 }

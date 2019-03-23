@@ -1,11 +1,8 @@
-﻿using HelloInterface.Enums;
+﻿
 using HelloInterface.Models;
-using HelloInterface.Process;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransferInternalTypes.Enums;
+using TransferInternalTypes.Helpers;
 
 namespace HelloInterface
 {
@@ -13,30 +10,45 @@ namespace HelloInterface
     {
         static void Main(string[] args)
         {
-            var alper = new BasicPerson
+            #region Tanımlamalar
+            var alper = new BasicPerson("Alper Köklü")
             {
                 WalletAmount = 500
             };
-            var ali = new BasicPerson
+            var ali = new BasicPerson("Ali Ercan")
             {
                 WalletAmount = 200
             };
+            #endregion
 
-            var cash1 = new Cash();
-            cash1.Transfer(alper, ali, 100);
-            
-            var gulsah = new PayPalCustomer();
-            var fatih = new BankCustomer();
-            var berkay = new BankCustomer()
+            var factory = new ProcessFactory();
+            while (true)
             {
-                AccountNumber = "7788924423",
-                FullName = "Berkay TÜZEN",
-                WalletAmount = 500,
-                Curreny = Currency.Lira
-            };
+                var type = GetProcessType();
+                var service = factory.GetProcess(type);
+                service.Transfer(alper, ali, 100);
 
+                Console.WriteLine(alper);
+                Console.WriteLine(ali);
 
-            Console.ReadKey();
+                Console.WriteLine("Devam Etmek için bir tuşa basınız");
+                Console.ReadKey();
+            }
+        }
+
+        static ProcessType GetProcessType()
+        {
+            while (true)
+            {
+                Console.Write("Süreç Türü Seçiniz....: ");
+                var t = Console.ReadKey();
+                Console.WriteLine();
+                int.TryParse(t.KeyChar.ToString(), out int value);
+                if (value > 0 && value <= 5)
+                {
+                    return (ProcessType)value;
+                }
+            }
         }
     }
 }

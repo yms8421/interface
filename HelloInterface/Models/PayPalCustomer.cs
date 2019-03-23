@@ -1,8 +1,9 @@
 ﻿using System;
+using TransferInternalTypes;
 
 namespace HelloInterface.Models
 {
-    class PayPalCustomer : PersonBase, IPerson
+    class PayPalCustomer : IPerson
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }

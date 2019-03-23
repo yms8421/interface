@@ -1,5 +1,6 @@
-﻿using HelloInterface.Enums;
+﻿using TransferInternalTypes.Enums;
 using System;
+using TransferInternalTypes;
 
 namespace HelloInterface.Models
 {
